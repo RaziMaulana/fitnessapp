@@ -65,7 +65,7 @@ export default function Navbar() {
     return (
         <>
             <motion.nav
-                className="shadow-lg border-b border-gray-200 fixed top-0 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
+                className="shadow-lg fixed top-0 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
                 style={{ backgroundColor: "#222222" }}
                 initial={{ opacity: 0, width: 0 }}
                 animate={{ opacity: 1, width: '100vw' }}
