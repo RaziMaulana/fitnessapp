@@ -90,7 +90,7 @@ export default function Opening({ carouselAnimationCompleted }: OpeningProps) {
     return (
         <section
             ref={sectionRef}
-            className="bg-[#F8F3ED] py-16 md:py-24 relative overflow-hidden min-h-screen flex items-center justify-center"
+            className="py-30 md:py-24 relative overflow-hidden min-h-screen flex items-center justify-center"
         >
             <motion.div
                 className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full"
