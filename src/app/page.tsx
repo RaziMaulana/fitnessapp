@@ -5,6 +5,7 @@ import Navbar from "../../components/navbar"
 import Carousel from "../../components/Home/carousel";
 import Opening from "../../components/Home/Opening";
 import Testimobial from "../../components/Home/testimonial";
+import ProductIntroduction from "../../components/Home/ProductIntroduction";
 
 export default function Home() {
   const [carouselAnimationCompleted, setCarouselAnimationCompleted] = useState(false);
@@ -19,6 +20,7 @@ export default function Home() {
       <Carousel onCarouselAnimationComplete={handleCarouselAnimationComplete} />
       <Opening carouselAnimationCompleted={carouselAnimationCompleted} />
       <Testimobial />
+      <ProductIntroduction />
     </div>
   )
 }
