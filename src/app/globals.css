@@ -25,6 +25,10 @@ body {
   font-family: var(--font-figtree), Arial, Helvetica, sans-serif;
 }
 
-.merriweather{
+.merriweather-font{
   font-family: var(--font-merriweather), Arial, Helvetica, sans-serif;;
+}
+
+body::-webkit-scrollbar {
+  display: none;  
 }

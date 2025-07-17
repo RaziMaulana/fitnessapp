@@ -1,21 +1,20 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import HomePageCarouselOne from '../../assets/images/Home/Carousel/HomePageCarouselOne.png';
-import HomePageCarouselTwo from '../../assets/images/Home/Carousel/HomePageCarouselTwo.png'; // Periksa path ini, ada dua kali 'Carousel/'
+import HomePageCarouselTwo from '../../assets/images/Home/Carousel/HomePageCarouselTwo.png';
 import HomePageCarouselThree from '../../assets/images/Home/Carousel/HomePageCarouselThree.png';
 import HomePageCarouselFour from '../../assets/images/Home/Carousel/HomePageCarouselFour.png';
 import HomePageCarouselFive from '../../assets/images/Home/Carousel/HomePageCarouselFive.png';
-import { motion, AnimatePresence, Variants } from 'motion/react'; // Pastikan ini 'framer-motion', bukan 'motion/react'
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 const images = [HomePageCarouselOne, HomePageCarouselTwo, HomePageCarouselThree, HomePageCarouselFour, HomePageCarouselFive];
 
-export default function Carousel() {
+export default function Carousel({ onCarouselAnimationComplete }: { onCarouselAnimationComplete?: () => void }) {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState(0); // 0: none, 1: next, -1: prev
+    const [direction, setDirection] = useState(0);
 
-    // Variasi animasi untuk Framer Motion (untuk transisi gambar)
     const variants = {
         enter: (direction: number) => ({
             x: direction > 0 ? 1000 : -1000,
@@ -31,22 +30,18 @@ export default function Carousel() {
         }),
     };
 
-    // --- Perubahan di sini: containerVariants ---
-    const carouselHeight = 'calc(100vh - 64px)'; // Definisikan tinggi final
     const containerVariants: Variants = {
-        hidden: { height: 0, opacity: 0 }, // Mulai dengan tinggi 0 dan opacity 0
+        hidden: { height: 0, opacity: 0 },
         visible: {
-            height: carouselHeight, // Animasi ke tinggi penuh
+            height: "auto",
             opacity: 1,
             transition: {
-                height: { duration: 1.2, ease: "easeInOut" }, // Animasi tinggi lebih lambat
-                opacity: { duration: 0.8, delay: 0.4, ease: "easeOut" }, // Fade in setelah sedikit penundaan
-                delay: 0.2 // Penundaan awal untuk seluruh animasi container
+                height: { duration: 1.2, ease: "easeInOut" },
+                opacity: { duration: 0.8, delay: 0.4, ease: "easeOut" },
+                delay: 0.2
             }
         },
     };
-    // --- Akhir Perubahan ---
-
 
     const paginate = (newDirection: number) => {
         setDirection(newDirection);
@@ -61,50 +56,58 @@ export default function Carousel() {
         });
     };
 
-    // Auto-play feature
     useEffect(() => {
         const interval = setInterval(() => {
-            paginate(1); // Maju otomatis setiap 5 detik
+            paginate(1);
         }, 5000);
         return () => clearInterval(interval);
     }, []);
 
     return (
         <motion.div
-            className="relative w-full overflow-hidden" // Tetap penting ada overflow-hidden
-            // Hapus style height di sini karena height akan dianimasikan oleh Framer Motion
-            style={{ marginTop: '64px' }} // Tetap gunakan margin-top untuk di bawah navbar
+            className="relative w-full overflow-hidden"
+            style={{ marginTop: '64px' }}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
+            onAnimationComplete={() => {
+                // Panggil callback setelah animasi 'visible' selesai
+                if (onCarouselAnimationComplete) {
+                    onCarouselAnimationComplete();
+                }
+            }}
         >
-            {/* 64px adalah tinggi navbar yang Anda definisikan (h-16) */}
-            <AnimatePresence initial={false} custom={direction}>
-                <motion.div
-                    key={currentIndex}
-                    custom={direction}
-                    variants={variants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{
-                        x: { type: "spring", stiffness: 300, damping: 30 },
-                        opacity: { duration: 0.2 }
-                    }}
-                    className="absolute inset-0 flex items-center justify-center" // Penting: ini akan mengisi container
-                >
-                    <Image
-                        src={images[currentIndex]}
-                        alt={`Carousel Image ${currentIndex + 1}`}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        priority={currentIndex === 0}
-                        className="pointer-events-none"
-                    />
-                </motion.div>
-            </AnimatePresence>
+            <div className="w-full relative
+                h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px]
+                lg:min-h-[calc(100vh-64px)]
+                "
+            >
+                <AnimatePresence initial={false} custom={direction}>
+                    <motion.div
+                        key={currentIndex}
+                        custom={direction}
+                        variants={variants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{
+                            x: { type: "spring", stiffness: 300, damping: 30 },
+                            opacity: { duration: 0.2 }
+                        }}
+                        className="absolute inset-0 flex items-center justify-center"
+                    >
+                        <Image
+                            src={images[currentIndex]}
+                            alt={`Carousel Image ${currentIndex + 1}`}
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            priority={currentIndex === 0}
+                            className="pointer-events-none"
+                        />
+                    </motion.div>
+                </AnimatePresence>
+            </div>
 
-            {/* Indikator Titik dengan Animasi Scale (Opsi 1) */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
                 {images.map((_, index) => (
                     <motion.button
