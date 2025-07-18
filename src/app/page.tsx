@@ -6,6 +6,7 @@ import Carousel from "../../components/Home/carousel";
 import Opening from "../../components/Home/Opening";
 import Testimobial from "../../components/Home/testimonial";
 import ProductIntroduction from "../../components/Home/ProductIntroduction";
+import Footer from "../../components/footer";
 
 export default function Home() {
   const [carouselAnimationCompleted, setCarouselAnimationCompleted] = useState(false);
@@ -21,6 +22,7 @@ export default function Home() {
       <Opening carouselAnimationCompleted={carouselAnimationCompleted} />
       <Testimobial />
       <ProductIntroduction />
+      <Footer />
     </div>
   )
 }
