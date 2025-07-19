@@ -1,17 +1,20 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import AppLogo from "../assets/images/AppLogo.png";
 import AppLogoWithText from "../assets/images/AppLogoWithText.png";
 import { useState, useEffect, useRef } from "react";
-import { motion } from "motion/react"; // Ganti 'motion/react' ke 'framer-motion' karena lebih umum
+import { motion } from "motion/react";
 
 export default function Navbar() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [showDesktopContent, setShowDesktopContent] = useState(false);
     const [screenWidth, setScreenWidth] = useState(0);
-    const [scrolled, setScrolled] = useState(false); // State baru untuk mendeteksi scroll
+    const [scrolled, setScrolled] = useState(false);
+    const pathname = usePathname(); // Mendapatkan current path
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -19,6 +22,14 @@ export default function Navbar() {
 
     const closeSidebar = () => {
         setIsSidebarOpen(false);
+    };
+
+    // Function untuk mengecek apakah link aktif
+    const isActiveLink = (href: string) => {
+        if (href === "/") {
+            return pathname === "/";
+        }
+        return pathname.startsWith(href);
     };
 
     // Effect untuk menangani klik di luar sidebar
@@ -50,7 +61,7 @@ export default function Navbar() {
 
         const handleScroll = () => {
             const offset = window.scrollY;
-            if (offset > 50) { // Angka 50 ini bisa disesuaikan, seberapa jauh scroll sebelum berubah
+            if (offset > 50) {
                 setScrolled(true);
             } else {
                 setScrolled(false);
@@ -78,10 +89,10 @@ export default function Navbar() {
                 className={`fixed top-0 left-1/2 -translate-x-1/2 z-30 overflow-hidden transition-all duration-300 ease-in-out
                             ${scrolled ? 'mt-4 rounded-full shadow-xl shadow-gray-950 w-[95%] md:w-[90%] lg:w-[80%] backdrop-blur-md' : 'mt-0 rounded-none shadow-lg w-full'}`}
                 style={{ 
-                    backgroundColor: scrolled ? "rgba(34, 34, 34, 0.8)" : "#222222" // Opacity berkurang saat scroll
+                    backgroundColor: scrolled ? "rgba(34, 34, 34, 0.8)" : "#222222"
                 }}
                 initial={{ opacity: 0, width: '100vw' }}
-                animate={{ opacity: 1, width: scrolled ? '95%' : '100vw' }} // Animasi width agar responsif dengan perubahan bentuk
+                animate={{ opacity: 1, width: scrolled ? '95%' : '100vw' }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
                 onAnimationComplete={handleNavbarAnimationComplete}
             >
@@ -131,18 +142,46 @@ export default function Navbar() {
                             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                         >
                             <div className="flex items-baseline space-x-3">
-                                <a href="#" className="text-white px-3 py-2 rounded-md font-medium relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300">
+                                <Link 
+                                    href="/" 
+                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${
+                                        isActiveLink("/") 
+                                            ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
+                                            : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
+                                    }`}
+                                >
                                     Home
-                                </a>
-                                <a href="#" className="text-white px-3 py-2 rounded-md font-medium relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300">
+                                </Link>
+                                <Link 
+                                    href="/about" 
+                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${
+                                        isActiveLink("/about") 
+                                            ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
+                                            : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
+                                    }`}
+                                >
                                     About
-                                </a>
-                                <a href="#" className="text-white px-3 py-2 rounded-md font-medium relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300">
+                                </Link>
+                                <Link 
+                                    href="/product" 
+                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${
+                                        isActiveLink("/product") 
+                                            ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
+                                            : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
+                                    }`}
+                                >
                                     Product
-                                </a>
-                                <a href="#" className="text-white px-3 py-2 rounded-md font-medium relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300">
+                                </Link>
+                                <Link 
+                                    href="/mentor" 
+                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${
+                                        isActiveLink("/mentor") 
+                                            ? "text-blue-400 after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-blue-400" 
+                                            : "text-white hover:text-blue-300 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
+                                    }`}
+                                >
                                     Mentor
-                                </a>
+                                </Link>
                             </div>
                         </motion.div>
                     </div>
@@ -181,7 +220,7 @@ export default function Navbar() {
                 </div>
             </motion.nav>
 
-            {/* Overlay dan Sidebar tidak berubah */}
+            {/* Overlay dan Sidebar */}
             {isSidebarOpen && (
                 <div
                     className="fixed inset-0 bg-black opacity-50 z-40 md:hidden"
@@ -211,34 +250,50 @@ export default function Navbar() {
                     </div>
 
                     <div className="flex flex-col space-y-4">
-                        <a
-                            href="#"
-                            className="text-white hover:bg-gray-800 px-4 py-3 rounded-md font-medium transition-colors block border-b border-gray-200"
+                        <Link
+                            href="/"
+                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${
+                                isActiveLink("/") 
+                                    ? "text-blue-400 bg-gray-800 border-blue-400" 
+                                    : "text-white hover:bg-gray-800 hover:text-blue-300"
+                            }`}
                             onClick={closeSidebar}
                         >
                             Home
-                        </a>
-                        <a
-                            href="#"
-                            className="text-white hover:bg-gray-800 px-4 py-3 rounded-md font-medium transition-colors block border-b border-gray-200"
+                        </Link>
+                        <Link
+                            href="/about"
+                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${
+                                isActiveLink("/about") 
+                                    ? "text-blue-400 bg-gray-800 border-blue-400" 
+                                    : "text-white hover:bg-gray-800 hover:text-blue-300"
+                            }`}
                             onClick={closeSidebar}
                         >
                             About
-                        </a>
-                        <a
-                            href="#"
-                            className="text-white hover:bg-gray-800 px-4 py-3 rounded-md font-medium transition-colors block border-b border-gray-200"
+                        </Link>
+                        <Link
+                            href="/product"
+                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${
+                                isActiveLink("/product") 
+                                    ? "text-blue-400 bg-gray-800 border-blue-400" 
+                                    : "text-white hover:bg-gray-800 hover:text-blue-300"
+                            }`}
                             onClick={closeSidebar}
                         >
                             Product
-                        </a>
-                        <a
-                            href="#"
-                            className="text-white hover:bg-gray-800 px-4 py-3 rounded-md font-medium transition-colors block border-b border-gray-200"
+                        </Link>
+                        <Link
+                            href="/mentor"
+                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${
+                                isActiveLink("/mentor") 
+                                    ? "text-blue-400 bg-gray-800 border-blue-400" 
+                                    : "text-white hover:bg-gray-800 hover:text-blue-300"
+                            }`}
                             onClick={closeSidebar}
                         >
                             Mentor
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="flex justify-center mt-auto py-8">
