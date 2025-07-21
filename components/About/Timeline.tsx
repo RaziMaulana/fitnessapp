@@ -345,7 +345,7 @@ const Timeline: React.FC = () => {
     };
 
     const progressWidth = getResponsiveProgressWidth();
-
+    
     return (
         <div ref={timelineContainerRef} className="min-h-screen font-sans flex items-center justify-center p-2 sm:p-4">
             <div className="container mx-auto w-full max-w-7xl">
@@ -354,7 +354,7 @@ const Timeline: React.FC = () => {
                     ref={heroSectionRef}
                     className="relative rounded-lg sm:rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl
                                 h-[80vh] sm:h-[85vh] lg:h-[750px] xl:h-[800px]
-                                flex flex-col justify-end cursor-grab active:cursor-grabbing select-none"
+                                flex flex-col justify-end"
                     style={{ touchAction: 'none' }}
                     initial={{ opacity: 0, y: 50 }} // Posisi awal di bawah dan tidak terlihat
                     animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }} // Animasi muncul jika isVisible true
