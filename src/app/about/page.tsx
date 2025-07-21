@@ -5,6 +5,7 @@ import Greeting from '../../../components/About/Greeting'
 import Founders from '../../../components/About/Founders'
 import Timeline from '../../../components/About/Timeline'
 import Goals from '../../../components/About/Goals'
+import Footer from '../../../components/footer'
 
 export default function About() {
     return (
@@ -14,6 +15,7 @@ export default function About() {
             <Founders />
             <Timeline />
             <Goals />
+            <Footer />
         </div>
     )
 }
