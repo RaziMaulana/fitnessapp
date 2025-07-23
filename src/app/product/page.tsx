@@ -1,6 +1,7 @@
 import Navbar from '../../../components/navbar'
 import Greeting from '../../../components/Product/Greeting'
 import Store from '../../../components/Product/Store'
+import Footer from '../../../components/footer'
 
 export default function Product(){
     return(
@@ -8,6 +9,7 @@ export default function Product(){
             <Navbar />
             <Greeting />
             <Store />
+            <Footer />
         </div>
     )
 }
