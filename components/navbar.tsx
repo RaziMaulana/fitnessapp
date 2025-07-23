@@ -88,7 +88,7 @@ export default function Navbar() {
             <motion.nav
                 className={`fixed top-0 left-1/2 -translate-x-1/2 z-30 overflow-hidden transition-all duration-300 ease-in-out
                             ${scrolled ? 'mt-4 rounded-full shadow-xl shadow-gray-950 w-[95%] md:w-[90%] lg:w-[80%] backdrop-blur-md' : 'mt-0 rounded-none shadow-lg w-full'}`}
-                style={{ 
+                style={{
                     backgroundColor: scrolled ? "rgba(34, 34, 34, 0.8)" : "#222222"
                 }}
                 initial={{ opacity: 0, width: '100vw' }}
@@ -142,43 +142,39 @@ export default function Navbar() {
                             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                         >
                             <div className="flex items-baseline space-x-3">
-                                <Link 
-                                    href="/" 
-                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${
-                                        isActiveLink("/") 
-                                            ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
-                                            : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
-                                    }`}
+                                <Link
+                                    href="/"
+                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${isActiveLink("/")
+                                        ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white"
+                                        : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
+                                        }`}
                                 >
                                     Home
                                 </Link>
-                                <Link 
-                                    href="/about" 
-                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${
-                                        isActiveLink("/about") 
-                                            ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
-                                            : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
-                                    }`}
+                                <Link
+                                    href="/about"
+                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${isActiveLink("/about")
+                                        ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white"
+                                        : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
+                                        }`}
                                 >
                                     About
                                 </Link>
-                                <Link 
-                                    href="/product" 
-                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${
-                                        isActiveLink("/product") 
-                                            ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
-                                            : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
-                                    }`}
+                                <Link
+                                    href="/product"
+                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${isActiveLink("/product")
+                                        ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white"
+                                        : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
+                                        }`}
                                 >
                                     Product
                                 </Link>
-                                <Link 
-                                    href="/mentor" 
-                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${
-                                        isActiveLink("/mentor") 
-                                            ? "text-blue-400 after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-blue-400" 
-                                            : "text-white hover:text-blue-300 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
-                                    }`}
+                                <Link
+                                    href="/mentor"
+                                    className={`px-3 py-2 rounded-md font-medium relative transition-all duration-300 ${isActiveLink("/mentor")
+                                        ? "text-white after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white"
+                                        : "text-white hover:text-white hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
+                                        }`}
                                 >
                                     Mentor
                                 </Link>
@@ -252,44 +248,40 @@ export default function Navbar() {
                     <div className="flex flex-col space-y-4">
                         <Link
                             href="/"
-                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${
-                                isActiveLink("/") 
-                                    ? "text-blue-400 bg-gray-800 border-blue-400" 
-                                    : "text-white hover:bg-gray-800 hover:text-blue-300"
-                            }`}
+                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${isActiveLink("/")
+                                ? "text-blue-400 bg-gray-800 border-blue-400"
+                                : "text-white hover:bg-gray-800 hover:text-blue-300"
+                                }`}
                             onClick={closeSidebar}
                         >
                             Home
                         </Link>
                         <Link
                             href="/about"
-                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${
-                                isActiveLink("/about") 
-                                    ? "text-blue-400 bg-gray-800 border-blue-400" 
-                                    : "text-white hover:bg-gray-800 hover:text-blue-300"
-                            }`}
+                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${isActiveLink("/about")
+                                ? "text-blue-400 bg-gray-800 border-blue-400"
+                                : "text-white hover:bg-gray-800 hover:text-blue-300"
+                                }`}
                             onClick={closeSidebar}
                         >
                             About
                         </Link>
                         <Link
                             href="/product"
-                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${
-                                isActiveLink("/product") 
-                                    ? "text-blue-400 bg-gray-800 border-blue-400" 
-                                    : "text-white hover:bg-gray-800 hover:text-blue-300"
-                            }`}
+                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${isActiveLink("/product")
+                                ? "text-blue-400 bg-gray-800 border-blue-400"
+                                : "text-white hover:bg-gray-800 hover:text-blue-300"
+                                }`}
                             onClick={closeSidebar}
                         >
                             Product
                         </Link>
                         <Link
                             href="/mentor"
-                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${
-                                isActiveLink("/mentor") 
-                                    ? "text-blue-400 bg-gray-800 border-blue-400" 
-                                    : "text-white hover:bg-gray-800 hover:text-blue-300"
-                            }`}
+                            className={`px-4 py-3 rounded-md font-medium transition-all duration-300 block border-b border-gray-600 ${isActiveLink("/mentor")
+                                ? "text-white bg-gray-800"
+                                : "text-white hover:bg-gray-800 hover:text-white"
+                                }`}
                             onClick={closeSidebar}
                         >
                             Mentor
