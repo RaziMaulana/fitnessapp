@@ -121,20 +121,19 @@ export default function Hire() {
             return (
               <motion.button
                 key={category}
-                className={`px-6 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
+                className={`px-6 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
                     ? 'bg-white border shadow-lg shadow-stone-600 text-black'
                     : 'bg-[#191919] text-white'
-                }`}
+                  }`}
                 whileHover={
                   isActive
                     ? {}
                     : {
-                        border: "1px solid #191919",
-                        backgroundColor: "white",
-                        color: "#191919",
-                        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
-                      }
+                      border: "1px solid #191919",
+                      backgroundColor: "white",
+                      color: "#191919",
+                      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+                    }
                 }
                 transition={{
                   duration: 0.2,
@@ -184,9 +183,15 @@ export default function Hire() {
                     <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <button className="bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-1 px-8 rounded-lg transition-colors text-lg">
+                <a
+                  href="#"
+                  className="inline-block text-center text-lg px-8 py-1 rounded-md
+                     hover:shadow-xl transition-all duration-300 ease-in-out font-semibold text-[#333]
+                     bg-gradient-to-br from-gray-300 to-gray-100"
+                  aria-label="Hire"
+                >
                   Hire
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}
