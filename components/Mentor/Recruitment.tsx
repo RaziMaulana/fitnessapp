@@ -56,7 +56,7 @@ export default function Recruitment() {
       </motion.h1>
 
       <motion.a
-        href="#"
+        href="/mentor/Recruitment-step-one"
         className="inline-block text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl px-10 py-6 rounded-xl
                    hover:shadow-xl transition-all duration-300 ease-in-out font-medium text-black
                    bg-gradient-to-br from-gray-300 to-gray-100 hover:shadow-xl shadow-slate-600"
