@@ -182,8 +182,6 @@ export default function Form() {
                        hover:shadow-xl transition-all duration-300 ease-in-out font-semibold text-[#333]
                        bg-gradient-to-br from-gray-300 to-gray-100 hover:shadow-xl shadow-slate-600"
             aria-label="Shop our best quality products"
-            // Hapus whileHover dan whileTap, serta variants={buttonHoverVariants}
-            // Karena kita hanya mengandalkan kelas Tailwind CSS untuk transisi shadow.
           >
             Submit
           </motion.a>
