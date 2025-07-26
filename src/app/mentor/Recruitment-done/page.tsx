@@ -1,12 +1,11 @@
 import Navbar from "../../../../components/navbar"
-import Form from "../../../../components/Mentor/Recruitment-process/Form"
+import Done from "../../../../components/Mentor/Recruitment-process/done"
 import Footer from "../../../../components/footer"
-
-export default function RecruitmentStepTwo() {
-    return (
+export default function RecruitmentDone(){
+    return(
         <div>
             <Navbar />
-            <Form />
+            <Done />
             <Footer />
         </div>
     )
