@@ -96,7 +96,7 @@ export default function MentorCriteria() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 pt-32 pb-8 px-8">
+        <div className="min-h-screen pt-32 pb-8 px-8">
             <div className="max-w-4xl mx-auto">
                 {/* Title */}
                 <motion.h1 
@@ -160,7 +160,7 @@ export default function MentorCriteria() {
                 {/* Proceed Button */}
                 <div className="flex justify-center">
                     <motion.a
-                        href="#"
+                        href="/mentor/Recruitment-step-two"
                         className="inline-block text-center text-lg md:text-xl lg:text-3xl px-10 py-3 rounded-xl
                      hover:shadow-xl transition-all duration-300 ease-in-out font-semibold text-[#333]
                      bg-gradient-to-br from-gray-300 to-gray-100 hover:shadow-xl shadow-slate-600"
