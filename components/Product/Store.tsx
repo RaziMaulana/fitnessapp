@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
-import type { StaticImageData } from 'next/image';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import Image, { StaticImageData } from 'next/image';
+import { motion, useAnimation, useInView } from 'motion/react'; // Perbaikan: motion/react menjadi framer-motion
+import { ArrowRight, ShoppingBag } from 'lucide-react'; 
 
-// Impor semua gambar
+// Impor semua gambar dengan memastikan tipenya StaticImageData
 import headerMuscleMan from '../../assets/images/Products/Store/headerMuscleMan.png';
 import wheyProtein from '../../assets/images/Products/Store/wheyProtein.png';
 import caseinProtein from '../../assets/images/Products/Store/caseinProtein.png';
@@ -35,7 +35,8 @@ interface ProductCardProps {
 
 // === KOMPONEN PRODUCTCARD UNTUK MOBILE ===
 const ProductCardMobile: React.FC<ProductCardProps> = ({ imageSrc, altText, name, price }) => (
-  <div className="flex-shrink-0 w-72 overflow-hidden rounded-xl" style={{ backgroundColor: '#DCC5B2' }}>
+  // Tambahkan kelas `snap-center` pada setiap ProductCardMobile
+  <div className="flex-shrink-0 w-72 overflow-hidden rounded-xl snap-center" style={{ backgroundColor: '#DCC5B2' }}>
     {/* Area gambar */}
     <div className="p-4">
       <div className="relative w-full h-48">
@@ -50,9 +51,8 @@ const ProductCardMobile: React.FC<ProductCardProps> = ({ imageSrc, altText, name
         <span className="text-xl font-bold mb-2">{price}</span>
         <button className="bg-white hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors w-full">
           <span className='text-sm font-semibold'>Add To Cart</span>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-          </svg>
+          {/* Menggunakan ikon Lucide React */}
+          <ShoppingBag className="h-4 w-4" /> 
         </button>
       </div>
     </div>
@@ -76,9 +76,8 @@ const ProductCardDesktop: React.FC<ProductCardProps> = ({ imageSrc, altText, nam
         <span className="text-xl font-bold">{price}</span>
         <button className="bg-white hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
           <span className='md:text-sm font-semibold'>Add To Cart</span>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-          </svg>
+          {/* Menggunakan ikon Lucide React */}
+          <ShoppingBag className="h-4 w-4" />
         </button>
       </div>
     </div>
@@ -87,7 +86,7 @@ const ProductCardDesktop: React.FC<ProductCardProps> = ({ imageSrc, altText, nam
 
 // === KOMPONEN WRAPPER UNTUK ANIMASI ON-SCROLL ===
 const AnimatedProductSection: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null); // Menambahkan tipe untuk useRef
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const controls = useAnimation();
 
@@ -145,7 +144,8 @@ const Store: React.FC = () => {
       <section className="py-16 px-4 max-w-6xl mx-auto">
         <AnimatedProductSection>
           {/* Tampilan Mobile */}
-          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar">
+          {/* Tambahkan `snap-x` dan `snap-mandatory` pada container ProductCardMobile */}
+          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar snap-x snap-mandatory">
             <ProductCardMobile imageSrc={wheyProtein} altText="Whey Protein Bottle" name="Whey Protein" price="30$" />
             <ProductCardMobile imageSrc={caseinProtein} altText="Casein Protein Bottle" name="Casein Protein" price="50$" />
             <ProductCardMobile imageSrc={creatine} altText="Creatine Bottle" name="Creatine" price="45$" />
@@ -181,7 +181,7 @@ const Store: React.FC = () => {
       <section className="py-16 px-4 max-w-6xl mx-auto">
         <AnimatedProductSection>
           {/* Tampilan Mobile */}
-          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar">
+          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar snap-x snap-mandatory">
             <ProductCardMobile imageSrc={muscletech} altText="MuscleTech Bottle" name="MuscleTech" price="25$" />
             <ProductCardMobile imageSrc={prosupps} altText="ProSupps Bottle" name="ProSupps" price="75$" />
             <ProductCardMobile imageSrc={myprotein} altText="MyProtein Bottle" name="MyProtein" price="33$" />
@@ -190,7 +190,7 @@ const Store: React.FC = () => {
           <div className="hidden md:grid md:grid-cols-3 gap-8">
             <ProductCardDesktop imageSrc={muscletech} altText="MuscleTech Bottle" name="MuscleTech" price="25$" />
             <ProductCardDesktop imageSrc={prosupps} altText="ProSupps Bottle" name="ProSupps" price="75$" />
-            <ProductCardDesktop imageSrc={myprotein} altText="MyProtein Bottle" name="MyProtein" price="33$" />
+            <ProductCardDesktop imageSrc={myprotein} altText="MyProtein Bottle" name="Myprotein" price="33$" />
           </div>
         </AnimatedProductSection>
       </section>
@@ -206,7 +206,7 @@ const Store: React.FC = () => {
       <section className="py-16 px-4 max-w-6xl mx-auto">
         <AnimatedProductSection>
           {/* Tampilan Mobile */}
-          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar">
+          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar snap-x snap-mandatory">
             <ProductCardMobile imageSrc={evlNutrition} altText="EVL Nutrition Jar" name="EVL Nutrition" price="45$" />
             <ProductCardMobile imageSrc={optimumNutrition} altText="Optimum Nutrition Jar" name="Optimum Nutrition" price="65$" />
             <ProductCardMobile imageSrc={scivation} altText="Salvation Jar" name="Salvation" price="37$" />
@@ -243,7 +243,7 @@ const Store: React.FC = () => {
       <section className="py-16 px-4 pb-20 max-w-6xl mx-auto">
         <AnimatedProductSection>
           {/* Tampilan Mobile */}
-          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar">
+          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar snap-x snap-mandatory">
             <ProductCardMobile imageSrc={vitC} altText="Vitamin C Bottle" name="Vit C" price="40$" />
             <ProductCardMobile imageSrc={vitD} altText="Vitamin D Bottle" name="Vit D" price="85$" />
             <ProductCardMobile imageSrc={vitB} altText="Vitamin B Bottle" name="Vit B" price="67$" />

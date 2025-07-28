@@ -1,7 +1,7 @@
 "use client"
 import React, { JSX, useState, useRef, useEffect } from 'react'; // Import useRef dan useEffect
 import Image from 'next/image';
-import { motion, AnimatePresence, useInView } from 'framer-motion'; // Import useInView
+import { motion, AnimatePresence, useInView } from 'motion/react'; // Import useInView
 
 // Import founder images (adjust paths as per your project structure)
 import WilliamOxwald from '../../assets/images/About/Founders/FoundersImageOne.png';

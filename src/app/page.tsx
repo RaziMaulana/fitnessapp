@@ -1,7 +1,7 @@
-"use client";
+"use client"; // This directive is crucial for using React Hooks like useEffect
 
-import React, { useState } from "react"
-import Navbar from "../../components/navbar"
+import React, { useState, useEffect } from "react"; // Import useEffect here
+import Navbar from "../../components/navbar";
 import Carousel from "../../components/Home/carousel";
 import Opening from "../../components/Home/Opening";
 import Testimobial from "../../components/Home/testimonial";
@@ -15,6 +15,10 @@ export default function Home() {
     setCarouselAnimationCompleted(true);
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
+
   return (
     <div>
       <Navbar />
@@ -24,5 +28,5 @@ export default function Home() {
       <ProductIntroduction />
       <Footer />
     </div>
-  )
+  );
 }

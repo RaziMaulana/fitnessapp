@@ -5,20 +5,25 @@ import Image from "next/image";
 import AboutImageOne from '../../assets/images/Mentor/Hire/MentorImageOne.png';
 import AboutImageTwo from '../../assets/images/Mentor/Hire/MentorImageTwo.png';
 import AboutImageThree from '../../assets/images/Mentor/Hire/MentorImageThree.png';
-import { motion, useInView, Variants, Transition } from "framer-motion"; // Import Variants and Transition
-import { useRef, useState } from "react";
+import { motion, useInView, Variants, Transition } from "motion/react";
+import { JSX, useRef, useState } from "react";
 import { StaticImageData } from "next/image";
 
 // Definisikan tipe untuk objek Trainer
 interface Trainer {
   id: number;
   name: string;
-  title: string;
+  titles: Record<string, string>; // Object yang berisi title untuk setiap category
   image: StaticImageData;
   rating: number;
 }
 
-export default function Hire() {
+// Definisikan tipe untuk category titles
+type CategoryTitles = {
+  [key: string]: string;
+}
+
+export default function Hire(): JSX.Element {
   const categories: string[] = [
     "Bodybuilding",
     "Strength",
@@ -32,21 +37,42 @@ export default function Hire() {
     {
       id: 1,
       name: "Steve Garrenson",
-      title: "BodyBuilding Trainer",
+      titles: {
+        "Bodybuilding": "Bodybuilding Trainer",
+        "Strength": "Strength & Power Coach",
+        "Fat Loss": "Weight Loss Specialist",
+        "Cardio": "Cardio Fitness Expert",
+        "Functional": "Functional Movement Coach",
+        "More...": "Multi-Discipline Trainer"
+      },
       image: AboutImageOne,
       rating: 5
     },
     {
       id: 2,
       name: "Darric Marrisson",
-      title: "BodyBuilding Trainer",
+      titles: {
+        "Bodybuilding": "Bodybuilding Trainer",
+        "Strength": "Strength & Power Coach",
+        "Fat Loss": "Weight Loss Specialist",
+        "Cardio": "Cardio Fitness Expert",
+        "Functional": "Functional Movement Coach",
+        "More...": "Certified Personal Trainer"
+      },
       image: AboutImageTwo,
       rating: 5
     },
     {
       id: 3,
       name: "Mike Oslan",
-      title: "BodyBuilding Trainer",
+      titles: {
+        "Bodybuilding": "Bodybuilding Trainer",
+        "Strength": "Strength & Power Coach",
+        "Fat Loss": "Weight Loss Specialist",
+        "Cardio": "Cardio Fitness Expert",
+        "Functional": "Functional Movement Coach",
+        "More...": "Fitness & Wellness Coach"
+      },
       image: AboutImageThree,
       rating: 5
     }
@@ -54,22 +80,32 @@ export default function Hire() {
 
   const [activeCategory, setActiveCategory] = useState<string>(categories[0]);
 
-  const handleCategoryClick = (category: string) => {
-    setActiveCategory(category);
+  // Function untuk mendapatkan title berdasarkan active category
+  const getTrainerTitle = (trainer: Trainer, category: string): string => {
+    return trainer.titles[category] || trainer.titles["Bodybuilding"];
   };
 
+  const handleCategoryClick = (category: string): void => {
+    setActiveCategory(category);
+    // Force re-render dengan key yang berubah
+    setTrainerKey(prev => prev + 1);
+  };
+
+  // State untuk memaksa re-render trainer cards
+  const [trainerKey, setTrainerKey] = useState<number>(0);
+
   // Create refs for the sections you want to animate
-  const titleRef = useRef(null);
-  const categoriesRef = useRef(null);
-  const trainersRef = useRef(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const categoriesRef = useRef<HTMLDivElement>(null);
+  const trainersRef = useRef<HTMLDivElement>(null);
 
   // Use useInView hook for each ref
-  const isTitleInView = useInView(titleRef, { once: true, amount: 0.5 }); // Animate once when 50% in view
-  const isCategoriesInView = useInView(categoriesRef, { once: true, amount: 0.5 });
-  const isTrainersInView = useInView(trainersRef, { once: true, amount: 0.2 }); // Animate when 20% of trainers section is in view
+  const isTitleInView: boolean = useInView(titleRef, { once: true, amount: 0.5 });
+  const isCategoriesInView: boolean = useInView(categoriesRef, { once: true, amount: 0.5 });
+  const isTrainersInView: boolean = useInView(trainersRef, { once: true, amount: 0.2 });
 
   // Define animation variants
-  const containerVariants: Variants = { // Explicitly type as Variants
+  const containerVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
@@ -77,13 +113,13 @@ export default function Hire() {
       transition: {
         type: "tween",
         duration: 0.6,
-        ease: "easeOut", // This string is now correctly interpreted
+        ease: "easeOut",
         staggerChildren: 0.1
-      } as Transition // Cast to Framer Motion's Transition type
+      } as Transition
     }
   };
 
-  const itemVariants: Variants = { // Explicitly type as Variants
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -91,8 +127,38 @@ export default function Hire() {
       transition: {
         type: "tween",
         duration: 0.3,
-        ease: "easeOut" // This string is now correctly interpreted
-      } as Transition // Cast to Framer Motion's Transition type
+        ease: "easeOut"
+      } as Transition
+    }
+  };
+
+  // Variants sederhana untuk trainer cards dengan scroll-triggered animation
+  const trainerContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.2,
+        staggerChildren: 0.08,
+        when: "beforeChildren"
+      } as Transition
+    }
+  };
+
+  const trainerItemVariants: Variants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      scale: 0.95
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      } as Transition
     }
   };
 
@@ -100,17 +166,17 @@ export default function Hire() {
     <div className="min-h-screen p-8">
       <div className="max-w-6xl mx-auto">
         <motion.h1
-          ref={titleRef} // Attach ref
+          ref={titleRef}
           className="text-4xl font-bold text-center text-gray-800 mb-12 merriweather-font"
           variants={containerVariants}
           initial="hidden"
-          animate={isTitleInView ? "visible" : "hidden"} // Animate based on inView status
+          animate={isTitleInView ? "visible" : "hidden"}
         >
           The Best And The Nearest
         </motion.h1>
 
         <motion.div
-          ref={categoriesRef} // Attach ref
+          ref={categoriesRef}
           className="flex flex-wrap justify-center gap-3 mb-12"
           variants={containerVariants}
           initial="hidden"
@@ -121,26 +187,14 @@ export default function Hire() {
             return (
               <motion.button
                 key={category}
-                className={`px-6 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
-                    ? 'bg-white border shadow-lg shadow-stone-600 text-black'
-                    : 'bg-[#191919] text-white'
-                  }`}
-                whileHover={
+                className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 border ${
                   isActive
-                    ? {}
-                    : {
-                      border: "1px solid #191919",
-                      backgroundColor: "white",
-                      color: "#191919",
-                      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
-                    }
-                }
-                transition={{
-                  duration: 0.2,
-                  ease: "easeInOut"
-                }}
-                variants={itemVariants} // Apply item variants for staggered animation
+                    ? 'bg-white border-gray-300 shadow-lg text-black font-semibold'
+                    : 'bg-[#191919] text-white border-transparent hover:bg-white hover:text-[#191919] hover:border-[#191919] hover:shadow-lg'
+                }`}
+                variants={itemVariants}
                 onClick={() => handleCategoryClick(category)}
+                whileTap={{ scale: 0.95 }}
               >
                 {category}
               </motion.button>
@@ -150,18 +204,19 @@ export default function Hire() {
 
         {/* Trainer Cards */}
         <motion.div
-          ref={trainersRef} // Attach ref
+          key={`trainers-${trainerKey}`}
+          ref={trainersRef}
           className="flex overflow-x-auto snap-x snap-mandatory pb-4 hide-scrollbar md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
+          variants={trainerContainerVariants}
           initial="hidden"
           animate={isTrainersInView ? "visible" : "hidden"}
         >
           {trainers.map((trainer: Trainer) => (
             <motion.div
-              key={trainer.id}
+              key={`${trainer.id}-${activeCategory}-${trainerKey}`}
               className="min-w-[80vw] sm:min-w-[60vw] md:min-w-0 flex-shrink-0 snap-center rounded-3xl shadow-lg overflow-hidden"
               style={{ backgroundColor: "#DCC5B2" }}
-              variants={itemVariants} // Apply item variants for staggered animation
+              variants={trainerItemVariants}
             >
               <div className="w-full h-74 overflow-hidden relative">
                 <Image
@@ -175,23 +230,33 @@ export default function Hire() {
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
                   {trainer.name}
                 </h3>
-                <p className="text-gray-700 text-base mb-4">
-                  {trainer.title}
-                </p>
+                <motion.p 
+                  className="text-gray-700 text-base mb-4"
+                  key={`title-${activeCategory}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {getTrainerTitle(trainer, activeCategory)}
+                </motion.p>
                 <div className="flex items-center gap-1 mb-6">
-                  {[...Array(trainer.rating)].map((_, i) => (
+                  {[...Array(trainer.rating)].map((_, i: number) => (
                     <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <a
+                <motion.a
                   href="#"
                   className="inline-block text-center text-lg px-8 py-1 rounded-md
-                     hover:shadow-xl transition-all duration-300 ease-in-out font-semibold text-[#333]
+                     transition-all duration-300 ease-in-out font-semibold text-[#333]
                      bg-gradient-to-br from-gray-300 to-gray-100"
-                  aria-label="Hire"
+                  aria-label={`Hire ${trainer.name}`}
+                  whileHover={{ 
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   Hire
-                </a>
+                </motion.a>
               </div>
             </motion.div>
           ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants, Transition } from "framer-motion"; // Import Transition juga
+import { motion, Variants, Transition } from "motion/react"; // Import Transition juga
 
 export default function Done() {
   // Varian animasi untuk teks "Thank You"

@@ -1,5 +1,6 @@
 "use client";
-import { motion, Variants } from 'motion/react';
+import { motion, Variants } from 'motion/react'; // Make sure it's 'framer-motion' not 'motion/react'
+import Link from 'next/link'; // Import Link from Next.js
 
 export default function Recruitment() {
   const containerVariants: Variants = {
@@ -55,16 +56,23 @@ export default function Recruitment() {
         Become the mentor itself
       </motion.h1>
 
-      <motion.a
-        href="/mentor/Recruitment-step-one"
-        className="inline-block text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl px-10 py-6 rounded-xl
-                   hover:shadow-xl transition-all duration-300 ease-in-out font-medium text-black
-                   bg-gradient-to-br from-gray-300 to-gray-100 hover:shadow-xl shadow-slate-600"
-        aria-label="Become The Mentor Of our Community"
-        variants={buttonVariants} // Menggunakan buttonVariants khusus
+      {/* Changed motion.a to motion(Link) */}
+      <motion.div // Use a motion.div or motion.span to wrap Link
+        variants={buttonVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
       >
-        Click Here
-      </motion.a>
+        <Link
+          href="/mentor/Recruitment-step-one"
+          className="inline-block text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl px-10 py-6 rounded-xl
+                     hover:shadow-xl transition-all duration-300 ease-in-out font-medium text-black
+                     bg-gradient-to-br from-gray-300 to-gray-100 shadow-slate-600"
+          aria-label="Become The Mentor Of our Community"
+        >
+          Click Here
+        </Link>
+      </motion.div>
     </motion.div>
   );
 }

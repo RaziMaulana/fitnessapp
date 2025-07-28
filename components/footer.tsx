@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from 'next/link'; // Link sudah diimport
 import { usePathname } from 'next/navigation';
 
 import AppLogoWithText from "../assets/images/AppLogoWithText.png";
@@ -23,21 +23,24 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12 md:mb-16 lg:mb-20">
 
                 <div className="flex items-center mb-8 md:mb-0">
-                    <Image
-                        src={AppLogoWithText}
-                        alt="LogoWithText"
-                        width={220}
-                        height={150}
-                        className="h-auto w-[130px] sm:w-[150px] md:w-[180px] lg:w-[220px]"
-                    />
+                    {/* Menggunakan Link untuk membungkus Image */}
+                    <Link href="/"> {/* Tentukan tujuan link, biasanya ke halaman utama */}
+                        <Image
+                            src={AppLogoWithText}
+                            alt="LogoWithText"
+                            width={220}
+                            height={150}
+                            className="h-auto w-[130px] sm:w-[150px] md:w-[180px] lg:w-[220px]"
+                        />
+                    </Link>
                 </div>
 
                 <nav className="flex flex-col pr-0 sm:pr-5 md:pr-10 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 md:space-x-10 lg:space-x-15 xl:space-x-17 text-lg sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold items-center">
                     <Link
                         href="/"
                         className={`relative hover:text-gray-100 transition-colors duration-300 ${
-                            isActiveLink("/") 
-                                ? "text-white after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
+                            isActiveLink("/")
+                                ? "text-white after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white"
                                 : "text-white hover:after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
                         }`}
                     >
@@ -47,8 +50,8 @@ export default function Footer() {
                     <Link
                         href="/about"
                         className={`relative hover:text-gray-100 transition-colors duration-300 ${
-                            isActiveLink("/about") 
-                                ? "text-white after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
+                            isActiveLink("/about")
+                                ? "text-white after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white"
                                 : "text-white hover:after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
                         }`}
                     >
@@ -58,8 +61,8 @@ export default function Footer() {
                     <Link
                         href="/product"
                         className={`relative hover:text-gray-100 transition-colors duration-300 ${
-                            isActiveLink("/product") 
-                                ? "text-white after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
+                            isActiveLink("/product")
+                                ? "text-white after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white"
                                 : "text-white hover:after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
                         }`}
                     >
@@ -69,8 +72,8 @@ export default function Footer() {
                     <Link
                         href="/mentor"
                         className={`relative hover:text-gray-100 transition-colors duration-300 ${
-                            isActiveLink("/mentor") 
-                                ? "text-white after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white" 
+                            isActiveLink("/mentor")
+                                ? "text-white after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white"
                                 : "text-white hover:after:w-full after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:bg-white after:w-0 after:transition-all after:duration-300"
                         }`}
                     >

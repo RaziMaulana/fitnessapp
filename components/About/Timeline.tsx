@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Image, { StaticImageData } from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 // Import your images here
 import TimelineImageOne from '../../assets/images/About/Timeline/TimelineImageOne.png';

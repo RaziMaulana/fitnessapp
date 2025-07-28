@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { JSX } from 'react';
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants } from 'motion/react';
 
 // Pastikan path import gambar sudah benar
 import MentorGreetImageOne from '../../assets/images/Mentor/Greeting/MentorGreetImageOne.png';

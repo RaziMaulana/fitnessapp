@@ -1,7 +1,8 @@
 "use client";
 
 import { Upload, ChevronDown } from "lucide-react";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants } from "motion/react"; // Pastikan ini 'framer-motion'
+import Link from "next/link"; // Import Link dari Next.js
 
 export default function Form() {
   const formVariants: Variants = {
@@ -15,7 +16,7 @@ export default function Form() {
         damping: 20,
         when: "beforeChildren",
         staggerChildren: 0.1,
-      } as any,
+      } as any, // 'as any' diperlukan karena 'when' tidak ada di tipe Transition secara default
     },
   };
 
@@ -174,17 +175,23 @@ export default function Form() {
           ></motion.textarea>
         </motion.div>
 
-        {/* Submit Button (sekarang berupa link <a> dengan animasi sederhana) */}
+        {/* Submit Button (sekarang menggunakan Link) */}
         <motion.div variants={itemVariants} className="flex justify-center pt-4">
-          <motion.a // Tetap motion.a
-            href="/mentor/Recruitment-done"
-            className="inline-block text-center text-lg md:text-xl lg:text-3xl px-10 py-3 rounded-xl
-                       hover:shadow-xl transition-all duration-300 ease-in-out font-semibold text-[#333]
-                       bg-gradient-to-br from-gray-300 to-gray-100 hover:shadow-xl shadow-slate-600"
-            aria-label="Shop our best quality products"
+          <motion.div // Gunakan motion.div sebagai wrapper untuk Link
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
           >
-            Submit
-          </motion.a>
+            <Link
+              href="/mentor/Recruitment-done" // Tujuan Link
+              className="inline-block text-center text-lg md:text-xl lg:text-3xl px-10 py-3 rounded-xl
+                         hover:shadow-xl transition-all duration-300 ease-in-out font-medium text-black
+                         bg-gradient-to-br from-gray-300 to-gray-100 shadow-slate-600"
+              aria-label="Submit the mentor recruitment form"
+            >
+              Submit
+            </Link>
+          </motion.div>
         </motion.div>
       </motion.div>
     </div>

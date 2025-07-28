@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "next/link"; // Pastikan Link diimport
 import { usePathname } from "next/navigation";
 import AppLogo from "../assets/images/AppLogo.png";
 import AppLogoWithText from "../assets/images/AppLogoWithText.png";
@@ -107,23 +107,27 @@ export default function Navbar() {
                             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
                         >
                             <div className="flex-shrink-0">
-                                {isLargeScreen ? (
-                                    <h1 className="text-2xl font-bold uppercase text-white">FITNESS</h1>
-                                ) : (
-                                    <Image
-                                        src={AppLogoWithText}
-                                        alt="LogoWithText"
-                                        width={120}
-                                        height={50}
-                                        className="h-auto"
-                                    />
-                                )}
+                                {/* MENGGUNAKAN KOMPONEN LINK UNTUK MEMBUNGKUS KONTEN YANG DIKLIK */}
+                                <Link href="/">
+                                    {isLargeScreen ? (
+                                        <h1 className="text-2xl font-bold uppercase text-white">FITNESS</h1>
+                                    ) : (
+                                        <Image
+                                            src={AppLogoWithText}
+                                            alt="LogoWithText"
+                                            width={120}
+                                            height={50}
+                                            className="h-auto"
+                                        />
+                                    )}
+                                </Link>
                             </div>
                         </motion.div>
 
                         {/* Kolom Tengah - Logo Image (Hanya terlihat jika isLargeScreen) */}
                         {isLargeScreen && (
                             <div className="flex items-center justify-center">
+                                {/* Jika AppLogo ini juga perlu bisa ditekan, bungkus dengan Link */}
                                 <Image
                                     src={AppLogo}
                                     alt="Logo"
@@ -186,13 +190,16 @@ export default function Navbar() {
                     <div className="md:hidden">
                         <div className="flex justify-between items-center h-16">
                             <div className="flex items-center">
-                                <Image
-                                    src={AppLogoWithText}
-                                    alt="LogoWithText"
-                                    width={120}
-                                    height={50}
-                                    className="h-auto"
-                                />
+                                {/* MENGGUNAKAN KOMPONEN LINK UNTUK MEMBUNGKUS GAMBAR PADA MOBILE */}
+                                <Link href="/">
+                                    <Image
+                                        src={AppLogoWithText}
+                                        alt="LogoWithText"
+                                        width={120}
+                                        height={50}
+                                        className="h-auto"
+                                    />
+                                </Link>
                             </div>
                             <button
                                 onClick={toggleSidebar}
@@ -233,6 +240,7 @@ export default function Navbar() {
                 <div className="p-4 flex flex-col h-full justify-between">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center space-x-3">
+                            {/* Jika teks FITNESS ini juga perlu bisa ditekan pada sidebar, bungkus dengan Link */}
                             <h1 className="text-xl font-bold uppercase text-white">FITNESS</h1>
                         </div>
                         <button
@@ -289,6 +297,7 @@ export default function Navbar() {
                     </div>
 
                     <div className="flex justify-center mt-auto py-8">
+                        {/* Jika AppLogo ini juga perlu bisa ditekan di sidebar, bungkus dengan Link */}
                         <Image
                             src={AppLogo}
                             alt="Logo"

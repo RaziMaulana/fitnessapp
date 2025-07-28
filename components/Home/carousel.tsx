@@ -7,7 +7,7 @@ import HomePageCarouselTwo from '../../assets/images/Home/Carousel/HomePageCarou
 import HomePageCarouselThree from '../../assets/images/Home/Carousel/HomePageCarouselThree.png';
 import HomePageCarouselFour from '../../assets/images/Home/Carousel/HomePageCarouselFour.png';
 import HomePageCarouselFive from '../../assets/images/Home/Carousel/HomePageCarouselFive.png';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'motion/react';
 
 const images = [HomePageCarouselOne, HomePageCarouselTwo, HomePageCarouselThree, HomePageCarouselFour, HomePageCarouselFive];
 

@@ -1,7 +1,8 @@
 "use client"
 
 import { BookOpen, Award, Users, History, UserCheck, CheckCircle } from 'lucide-react'
-import { motion } from 'motion/react'
+import { motion } from 'motion/react' // Use 'framer-motion' for full Framer Motion features
+import Link from 'next/link' // Import Link from Next.js
 
 export default function MentorCriteria() {
     const criteria = [
@@ -45,8 +46,8 @@ export default function MentorCriteria() {
 
     // Individual card animation variants
     const cardVariants = {
-        hidden: { 
-            opacity: 0, 
+        hidden: {
+            opacity: 0,
             y: 50,
             scale: 0.8
         },
@@ -65,9 +66,9 @@ export default function MentorCriteria() {
 
     // Title animation variants
     const titleVariants = {
-        hidden: { 
-            opacity: 0, 
-            y: -30 
+        hidden: {
+            opacity: 0,
+            y: -30
         },
         visible: {
             opacity: 1,
@@ -83,13 +84,13 @@ export default function MentorCriteria() {
 
     // Button animation variants
     const buttonVariants = {
-        hidden: { 
+        hidden: {
             opacity: 0
         },
         visible: {
             opacity: 1,
             transition: {
-                delay: 1.0,
+                delay: 1.0, // Delay this animation until others finish
                 duration: 0.5
             }
         }
@@ -99,7 +100,7 @@ export default function MentorCriteria() {
         <div className="min-h-screen pt-32 pb-8 px-8">
             <div className="max-w-4xl mx-auto">
                 {/* Title */}
-                <motion.h1 
+                <motion.h1
                     className="text-4xl font-bold text-center text-black tracking-wide mb-12 merriweather-font"
                     variants={titleVariants}
                     initial="hidden"
@@ -109,7 +110,7 @@ export default function MentorCriteria() {
                 </motion.h1>
 
                 {/* Criteria Grid */}
-                <motion.div 
+                <motion.div
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
                     variants={containerVariants}
                     initial="hidden"
@@ -122,17 +123,17 @@ export default function MentorCriteria() {
                                 key={index}
                                 className="bg-[#DCC5B2] bg-opacity-60 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow duration-300"
                                 variants={cardVariants}
-                                whileHover={{ 
+                                whileHover={{
                                     scale: 1.03,
                                     transition: { duration: 0.2 }
                                 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                <motion.div 
+                                <motion.div
                                     className="mb-4"
                                     initial={{ scale: 0, rotate: -180 }}
                                     animate={{ scale: 1, rotate: 0 }}
-                                    transition={{ 
+                                    transition={{
                                         delay: 0.3 + (index * 0.1),
                                         type: "spring" as const,
                                         stiffness: 180,
@@ -141,11 +142,11 @@ export default function MentorCriteria() {
                                 >
                                     <IconComponent size={48} className="text-black" />
                                 </motion.div>
-                                <motion.p 
+                                <motion.p
                                     className="text-black text-bold tracking-wide text-sm"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    transition={{ 
+                                    transition={{
                                         delay: 0.4 + (index * 0.1),
                                         duration: 0.3
                                     }}
@@ -159,23 +160,23 @@ export default function MentorCriteria() {
 
                 {/* Proceed Button */}
                 <div className="flex justify-center">
-                    <motion.a
-                        href="/mentor/Recruitment-step-two"
-                        className="inline-block text-center text-lg md:text-xl lg:text-3xl px-10 py-3 rounded-xl
-                     hover:shadow-xl transition-all duration-300 ease-in-out font-semibold text-[#333]
-                     bg-gradient-to-br from-gray-300 to-gray-100 hover:shadow-xl shadow-slate-600"
-                        aria-label="Shop our best quality products"
+                    {/* Changed motion.a to motion.div wrapping Link */}
+                    <motion.div
                         variants={buttonVariants}
                         initial="hidden"
                         animate="visible"
-                        whileHover={{ 
-                            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                            transition: { duration: 0.2 }
-                        }}
-                        whileTap={{ scale: 0.95 }}
+                        viewport={{ once: true, amount: 0.5 }}
                     >
-                        Proceed
-                    </motion.a>
+                        <Link
+                            href="/mentor/Recruitment-step-two"
+                            className="inline-block text-center text-lg md:text-xl lg:text-3xl px-10 py-3 rounded-xl
+                                       hover:shadow-xl transition-all duration-300 ease-in-out font-medium text-black
+                                       bg-gradient-to-br from-gray-300 to-gray-100 shadow-slate-600"
+                            aria-label="Proceed to the next step of mentor recruitment"
+                        >
+                            Proceed
+                        </Link>
+                    </motion.div>
                 </div>
             </div>
         </div>

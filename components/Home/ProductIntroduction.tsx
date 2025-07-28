@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { motion, Variants } from 'framer-motion';
+import Link from "next/link";
+import { motion, Variants } from 'motion/react';
 import Image, { StaticImageData } from 'next/image';
 
 // Impor setiap gambar botol secara terpisah
@@ -126,15 +127,15 @@ export default function ProductIntroduction() {
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl xl:text-7xl text-[#333] mb-8 leading-tight">
           Best Quality Products just for You
         </h2>
-        <a
-          href="#"
+        <Link
+          href="/about"
           className="inline-block text-center text-lg md:text-xl lg:text-3xl px-10 py-3 rounded-xl
-                     hover:shadow-xl transition-all duration-300 ease-in-out font-semibold text-[#333]
-                     bg-gradient-to-br from-gray-300 to-gray-100 hover:shadow-xl shadow-slate-600"
+             hover:shadow-xl transition-all duration-300 ease-in-out font-semibold text-[#333]
+             bg-gradient-to-br from-gray-300 to-gray-100 hover:shadow-xl shadow-slate-600"
           aria-label="Shop our best quality products"
         >
           Shop
-        </a>
+        </Link>
       </div>
     </AnimatedWrapper>
   );

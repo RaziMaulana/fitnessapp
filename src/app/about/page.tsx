@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../../../components/navbar'
 import Greeting from '../../../components/About/Greeting'
 import Founders from '../../../components/About/Founders'
@@ -8,6 +8,11 @@ import Goals from '../../../components/About/Goals'
 import Footer from '../../../components/footer'
 
 export default function About() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div>
             <Navbar />
