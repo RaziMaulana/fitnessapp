@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import HomePageCarouselOne from '../../assets/images/Home/Carousel/HomePageCarouselOne.png';
 import HomePageCarouselTwo from '../../assets/images/Home/Carousel/HomePageCarouselTwo.png';
 import HomePageCarouselThree from '../../assets/images/Home/Carousel/HomePageCarouselThree.png';
@@ -11,9 +12,26 @@ import { motion, AnimatePresence, Variants } from 'motion/react';
 
 const images = [HomePageCarouselOne, HomePageCarouselTwo, HomePageCarouselThree, HomePageCarouselFour, HomePageCarouselFive];
 
-export default function Carousel({ onCarouselAnimationComplete }: { onCarouselAnimationComplete?: () => void }) {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState(0);
+interface CarouselProps {
+    onCarouselAnimationComplete?: () => void;
+}
+
+export default function Carousel({ onCarouselAnimationComplete }: CarouselProps) {
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [direction, setDirection] = useState<number>(0);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
+    // Detect mobile device
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 640); // sm breakpoint
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const variants = {
         enter: (direction: number) => ({
@@ -56,6 +74,26 @@ export default function Carousel({ onCarouselAnimationComplete }: { onCarouselAn
         });
     };
 
+    const goToPrevious = () => {
+        paginate(-1);
+    };
+
+    const goToNext = () => {
+        paginate(1);
+    };
+
+    const goToSlide = (index: number) => {
+        const newDirection = index > currentIndex ? 1 : -1;
+        setDirection(newDirection);
+        setCurrentIndex(index);
+    };
+
+    // Swipe detection
+    const swipeConfidenceThreshold = 10000;
+    const swipePower = (offset: number, velocity: number) => {
+        return Math.abs(offset) * velocity;
+    };
+
     useEffect(() => {
         const interval = setInterval(() => {
             paginate(1);
@@ -95,6 +133,21 @@ export default function Carousel({ onCarouselAnimationComplete }: { onCarouselAn
                             opacity: { duration: 0.2 }
                         }}
                         className="absolute inset-0 flex items-center justify-center"
+                        // Drag properties only active on mobile
+                        {...(isMobile && {
+                            drag: "x",
+                            dragConstraints: { left: 0, right: 0 },
+                            dragElastic: 1,
+                            onDragEnd: (_e: any, { offset, velocity }: any) => {
+                                const swipe = swipePower(offset.x, velocity.x);
+
+                                if (swipe < -swipeConfidenceThreshold) {
+                                    paginate(1);
+                                } else if (swipe > swipeConfidenceThreshold) {
+                                    paginate(-1);
+                                }
+                            }
+                        })}
                     >
                         <Image
                             src={images[currentIndex]}
@@ -102,31 +155,62 @@ export default function Carousel({ onCarouselAnimationComplete }: { onCarouselAn
                             fill
                             style={{ objectFit: 'cover' }}
                             priority={currentIndex === 0}
-                            className="pointer-events-none"
+                            className={`pointer-events-none ${isMobile ? 'select-none' : ''}`}
                         />
                     </motion.div>
                 </AnimatePresence>
+
+                {/* Arrow Navigation - Only visible on desktop when not mobile */}
+                {!isMobile && (
+                    <>
+                        <motion.button
+                            onClick={goToPrevious}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 
+                                bg-black/50 hover:bg-black/70 text-white p-2 rounded-full
+                                opacity-80 hover:opacity-100 transition-all duration-300
+                                hover:scale-110 active:scale-95"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            aria-label="Previous image"
+                        >
+                            <ChevronLeft size={24} />
+                        </motion.button>
+
+                        <motion.button
+                            onClick={goToNext}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 
+                                bg-black/50 hover:bg-black/70 text-white p-2 rounded-full
+                                opacity-80 hover:opacity-100 transition-all duration-300
+                                hover:scale-110 active:scale-95"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            aria-label="Next image"
+                        >
+                            <ChevronRight size={24} />
+                        </motion.button>
+                    </>
+                )}
             </div>
 
+            {/* Dots Indicator - Clickable on desktop, visual indicator on mobile */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
                 {images.map((_, index) => (
                     <motion.button
                         key={index}
-                        onClick={() => {
-                            const newDirection = index > currentIndex ? 1 : -1;
-                            setDirection(newDirection);
-                            setCurrentIndex(index);
-                        }}
-                        className="block h-2 w-2 rounded-full bg-gray-400 hover:bg-white transition-colors cursor-pointer"
+                        onClick={() => !isMobile && goToSlide(index)}
+                        className={`block h-2 w-2 rounded-full bg-gray-400 transition-colors
+                            ${!isMobile ? 'hover:bg-white cursor-pointer touch-manipulation' : 'cursor-default'}`}
                         animate={{
                             scale: index === currentIndex ? 1.5 : 1,
                             backgroundColor: index === currentIndex ? '#FFFFFF' : '#9CA3AF',
                         }}
                         transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                        aria-label={`Go to slide ${index + 1}`}
+                        aria-label={!isMobile ? `Go to slide ${index + 1}` : `Slide ${index + 1}`}
+                        disabled={isMobile}
                     />
                 ))}
             </div>
+
         </motion.div>
     );
 }

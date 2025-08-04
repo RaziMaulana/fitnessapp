@@ -170,6 +170,16 @@ export default function Founders(): JSX.Element {
                                     <p className="text-xl sm:text-2xl md:text-xl lg:text-xl xl:text-2xl font-serif italic text-gray-800 group-hover:text-orange-700 transition-colors">
                                         " {founder.name} "
                                     </p>
+
+                                    <motion.p 
+                                        className="text-sm text-gray-800 tracking-wide mt-2 opacity-70 group-hover:text-orange-500 group-hover:opacity-100 transition-all duration-300"
+                                        initial={{ opacity: 0 }}
+                                        animate={isInView ? { opacity: 0.7 } : {}}
+                                        transition={{ delay: isInView ? (founder.id * 0.1) + 0.3 : 0 }}
+                                    >
+                                        Click here
+                                    </motion.p>
+
                                 </motion.div>
                             ))}
                         </motion.div>
