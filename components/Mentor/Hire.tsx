@@ -206,7 +206,7 @@ export default function Hire(): JSX.Element {
         <motion.div
           key={`trainers-${trainerKey}`}
           ref={trainersRef}
-          className="flex overflow-x-auto snap-x snap-mandatory pb-4 hide-scrollbar md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="flex overflow-x-auto snap-x snap-mandatory pb-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={trainerContainerVariants}
           initial="hidden"
           animate={isTrainersInView ? "visible" : "hidden"}

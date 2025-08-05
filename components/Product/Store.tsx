@@ -145,7 +145,7 @@ const Store: React.FC = () => {
         <AnimatedProductSection>
           {/* Tampilan Mobile */}
           {/* Tambahkan `snap-x` dan `snap-mandatory` pada container ProductCardMobile */}
-          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar snap-x snap-mandatory">
+          <div className="md:hidden flex flex-row overflow-x-auto gap-8 snap-x snap-mandatory">
             <ProductCardMobile imageSrc={wheyProtein} altText="Whey Protein Bottle" name="Whey Protein" price="30$" />
             <ProductCardMobile imageSrc={caseinProtein} altText="Casein Protein Bottle" name="Casein Protein" price="50$" />
             <ProductCardMobile imageSrc={creatine} altText="Creatine Bottle" name="Creatine" price="45$" />
@@ -181,7 +181,7 @@ const Store: React.FC = () => {
       <section className="py-16 px-4 max-w-6xl mx-auto">
         <AnimatedProductSection>
           {/* Tampilan Mobile */}
-          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar snap-x snap-mandatory">
+          <div className="md:hidden flex flex-row overflow-x-auto gap-8 snap-x snap-mandatory">
             <ProductCardMobile imageSrc={muscletech} altText="MuscleTech Bottle" name="MuscleTech" price="25$" />
             <ProductCardMobile imageSrc={prosupps} altText="ProSupps Bottle" name="ProSupps" price="75$" />
             <ProductCardMobile imageSrc={myprotein} altText="MyProtein Bottle" name="MyProtein" price="33$" />
@@ -206,7 +206,7 @@ const Store: React.FC = () => {
       <section className="py-16 px-4 max-w-6xl mx-auto">
         <AnimatedProductSection>
           {/* Tampilan Mobile */}
-          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar snap-x snap-mandatory">
+          <div className="md:hidden flex flex-row overflow-x-auto gap-8 snap-x snap-mandatory">
             <ProductCardMobile imageSrc={evlNutrition} altText="EVL Nutrition Jar" name="EVL Nutrition" price="45$" />
             <ProductCardMobile imageSrc={optimumNutrition} altText="Optimum Nutrition Jar" name="Optimum Nutrition" price="65$" />
             <ProductCardMobile imageSrc={scivation} altText="Salvation Jar" name="Salvation" price="37$" />
@@ -243,7 +243,7 @@ const Store: React.FC = () => {
       <section className="py-16 px-4 pb-20 max-w-6xl mx-auto">
         <AnimatedProductSection>
           {/* Tampilan Mobile */}
-          <div className="md:hidden flex flex-row overflow-x-auto gap-8 hide-scrollbar snap-x snap-mandatory">
+          <div className="md:hidden flex flex-row overflow-x-auto gap-8 snap-x snap-mandatory">
             <ProductCardMobile imageSrc={vitC} altText="Vitamin C Bottle" name="Vit C" price="40$" />
             <ProductCardMobile imageSrc={vitD} altText="Vitamin D Bottle" name="Vit D" price="85$" />
             <ProductCardMobile imageSrc={vitB} altText="Vitamin B Bottle" name="Vit B" price="67$" />
